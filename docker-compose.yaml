@@ -14,4 +14,42 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=8080
-      - DATABASE_URL="testDb"
+      - DATABASE_URL=mongodb://demo-mongo:27017/api-db
+    networks:
+      - demo-network
+    depends_on:
+      - demo-mongo
+  
+  #mongoDb
+  demo-mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - demo-network
+    volumes:
+      - demo-mongo-data:/data/db
+  
+  demo-mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=demo-mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=password
+    networks:
+      - demo-network
+    depends_on:
+      - demo-mongo
+
+  
+
+networks:
+  demo-network:
+    driver: bridge
+
+volumes:
+  demo-mongo-data:

@@ -7,6 +7,9 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
 
+console.log("Hello World");
+console.log("Haniful Islam");
+
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "UP", path: req.path });
 });
