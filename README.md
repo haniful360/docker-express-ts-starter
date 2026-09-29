@@ -137,6 +137,35 @@ The default development environment variables are set in [`docker-compose.yaml`]
 
 ---
 
+## 🐳 Important Docker Commands — Cheat Sheet
+
+Useful Docker CLI commands for image and container management:
+
+| Action / কাজ | Command | Description |
+| :----------------------- | :---------------------------------- | :------------------------------------------- |
+| **Image build**          | `docker build -t myapp:latest .`   | Dockerfile থেকে নতুন ইমেজ তৈরি করা           |
+| **Images দেখুন**         | `docker images`                     | লোকাল সিস্টেমে থাকা সব ইমেজ লিস্ট করা        |
+| **Image pull**           | `docker pull redis`                 | Docker Hub থেকে ইমেজ নামিয়ে আনা             |
+| **Container create**     | `docker create redis`               | কনটেইনার তৈরি করা (কিন্তু চালু না করে)       |
+| **Container run**        | `docker run redis`                  | নতুন কনটেইনার তৈরি করে সাথে সাথে রান করা    |
+| **Interactive run**      | `docker run -it redis`              | কনটেইনার টার্মিনাল এক্সেস সহ রান করা        |
+| **Temporary container**  | `docker run -it --rm redis`         | কাজ শেষ হলে নিজে থেকেই ডিলিট হয়ে যাবে       |
+| **Background run**       | `docker run -d redis`               | ব্যাকগ্রাউন্ডে (Detached mode) রান করা       |
+| **Running containers**   | `docker ps`                         | বর্তমানে চালু থাকা কনটেইনার লিস্ট দেখা      |
+| **All containers**       | `docker ps -a`                      | বন্ধ এবং চালু সব কনটেইনারের লিস্ট দেখা      |
+| **Container start**      | `docker start <id>`                 | বন্ধ থাকা কনটেইনার চালু করা                  |
+| **Start + attach**       | `docker start -a <id>`              | কনটেইনার চালু করে আউটপুট দেখতে থাকা         |
+| **Container stop**       | `docker stop <id>`                  | রানিং কনটেইনার সেফলি বন্ধ করা               |
+| **Container logs**       | `docker logs <id>`                  | কনটেইনারের লগ আউটপুট চেক করা                 |
+| **Container shell**      | `docker exec -it <id> bash`         | রানিং কনটেইনারের ভেতরে bash শেল ওপেন করা    |
+| **Container details**    | `docker inspect <id>`               | কনটেইনারের বিস্তারিত তথ্য/কনফিগ দেখা        |
+| **Remove container**     | `docker rm <id>`                    | বন্ধ থাকা কনটেইনার ডিলিট করা                |
+| **Force remove**         | `docker rm -f <id>`                 | চালু থাকা অবস্থায় জোরপূর্বক রিমুভ করা       |
+| **Remove image**         | `docker rmi <image>`                | ইমেজ মুছে ফেলা                               |
+| **Cleanup unused resources** | `docker system prune`           | অপ্রয়োজনীয় ক্যাশ, নেটওয়ার্ক ও ইমেজ ক্লিন করা |
+
+---
+
 ## 📜 Available Scripts (inside `api/`)
 
 - `npm run dev`: Runs the app in development mode using `tsx watch` (auto-restarts on code changes).
