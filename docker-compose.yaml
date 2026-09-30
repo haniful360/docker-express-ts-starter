@@ -44,8 +44,65 @@ services:
       - demo-network
     depends_on:
       - demo-mongo
-
   
+  demo-postgres:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    networks:
+      - demo-network
+    volumes:
+      - demo-postgres-data:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=api-db
+  
+  demo-pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "5433:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    networks:
+      - demo-network
+    depends_on:
+      - demo-postgres
+
+  demo-redis-stack:
+    image: redis/redis-stack:latest
+    restart: always
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    networks:
+      - demo-network
+    volumes:
+      - demo-redis-stack-data:/var/lib/redis-stack
+    environment:
+      - REDIS_PASSWORD=password
+      - REDIS_ARGS=--save 900 1
+    
+  rabbitMq:
+    image: rabbitmq:3.8-management
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - demo-network
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=password
+    volumes:
+      - demo-rabbitmq-data:/var/lib/rabbitmq
+      
+
+
+
 
 networks:
   demo-network:
@@ -53,3 +110,7 @@ networks:
 
 volumes:
   demo-mongo-data:
+  demo-postgres-data:
+  demo-redis-stack-data:
+  demo-rabbitmq-data:
+  
